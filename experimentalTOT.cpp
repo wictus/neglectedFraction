@@ -10,6 +10,9 @@ experimentalTOT::experimentalTOT(const std::string filePath)
     exit(1);
   }
   
+  double TOT = 0;
+  while( data >> TOT )
+    fTOTs.push_back( TOT / 1000.0);
 
 }
 
@@ -49,9 +52,9 @@ void experimentalTOT::plotSpectrum(const double threshold)
   std::stringstream buffer;
   buffer << threshold;
   title+=buffer.str();
-  title+="keVCut";
+  title+="nsCut";
   
-  TH1F* histo = new TH1F(title.c_str(),title.c_str(),1500, 0, 1500);
+  TH1F* histo = new TH1F(title.c_str(),title.c_str(),50, 0, 50);
   
   for(unsigned int i = 0; i < fTOTs.size(); i++)
   {
@@ -59,7 +62,7 @@ void experimentalTOT::plotSpectrum(const double threshold)
       histo->Fill(fTOTs[i]);
   }
   TCanvas* c = new TCanvas();
-  histo->GetXaxis()->SetTitle("Energy [kev]");
+  histo->GetXaxis()->SetTitle("Time Over Threshold [ns]");
   histo->GetYaxis()->SetTitle("Counts");
   
   histo->Draw();

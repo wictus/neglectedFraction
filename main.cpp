@@ -73,7 +73,7 @@ void TOTPart()
   experimentalTOT tot("TOTs54.txt");
   tot.plotTOT();
   std::vector<std::pair<double,double> > data;
-  for(double cut = 0; cut < 10000;cut+=25)
+  for(double cut = 0; cut < 10;cut+=0.0025)
   {
     tot.setTOTThreshold(cut);
     data.push_back( std::make_pair<double, double>(cut, tot.calculateNeglectedFraction() ) );
@@ -86,6 +86,31 @@ void TOTPart()
   
   plotNeglectedFraction(data);
  
+}
+
+
+void plotNeglectedFraction(const std::vector< std::pair< double, double > >& data)
+{
+  std::vector<double> x,y;
+  
+  std::cout<< x.size() << std::endl;
+  
+  for(unsigned int i = 0; i < data.size(); i++)
+  {
+      x.push_back(data[i].first);
+      y.push_back(data[i].second);
+  }
+  std::cout<< x.size() << std::endl;
+  
+  TCanvas* c = new TCanvas();
+  TGraph* graph = new TGraph(x.size(), &x[0], &y[0]);
+  graph->SetMarkerStyle(21);
+  graph->SetMarkerSize(0.5);
+  graph->SetTitle("Neglected fraction");
+  graph->Draw("AP");
+  c->SaveAs("neglectedFraction.png");
+  c->SaveAs("neglectedFraction.root");
+
 }
 
 /*
@@ -117,29 +142,6 @@ void amplitudePart()
   }
 } 
 
-void plotNeglectedFraction(const std::vector< std::pair< double, double > >& data)
-{
-  std::vector<double> x,y;
-  
-  std::cout<< x.size() << std::endl;
-  
-  for(unsigned int i = 0; i < data.size(); i++)
-  {
-      x.push_back(data[i].first);
-      y.push_back(data[i].second);
-  }
-  std::cout<< x.size() << std::endl;
-  
-  TCanvas* c = new TCanvas();
-  TGraph* graph = new TGraph(x.size(), &x[0], &y[0]);
-  graph->SetMarkerStyle(21);
-  graph->SetMarkerSize(0.5);
-  graph->SetTitle("Neglected fraction");
-  graph->Draw("AP");
-  c->SaveAs("neglectedFraction.png");
-  c->SaveAs("neglectedFraction.root");
-
-}
 
 
 void simulationPart(const double resolution)

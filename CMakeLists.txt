@@ -19,4 +19,4 @@ target_link_libraries(experimentalTOT ${ROOT_LIBRARIES})
 
 add_executable(neglectedfraction main.cpp)
 
-target_link_libraries(neglectedfraction simulatedCompton )
+target_link_libraries(neglectedfraction simulatedCompton experimentalTOT )
