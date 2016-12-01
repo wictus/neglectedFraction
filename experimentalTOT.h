@@ -4,6 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<cmath>
+#include <fstream>
 #include<string>
 #include<sstream>
 #include "TRandom3.h"
